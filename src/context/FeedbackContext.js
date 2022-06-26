@@ -1,10 +1,11 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { v4 as uuidv4 } from 'uuid'
 
 const FeedbackContest = createContext()
 
 export const FeedbackProvider = ({children}) => {
 
+  const [isLoading, setIsLoading] = useState(true)
   const [feedback, setFeedback] = useState([
     {
       id: 1,
@@ -26,6 +27,18 @@ export const FeedbackProvider = ({children}) => {
     item: {},
     edit: false,
   })
+
+  useEffect(() => {
+    fetchFeedback()
+  }, [])
+
+  const fetchFeedback = async () => {
+    const response = await fetch(`/feedback?_sort=id&_order=desc`)
+    const data = await response.json()
+
+    setFeedback(data)
+    setIsLoading(false)
+  }
 
   const deleteFeedback = (id) => {
     if (window.confirm("Are your sure to delete?")) {
@@ -53,12 +66,14 @@ export const FeedbackProvider = ({children}) => {
 
   return (
     <FeedbackContest.Provider 
-      value={{feedback, 
-      deleteFeedback, 
-      addFeedback,
-      editFeedback,
-      updateFeedback,
-      feedbackEdit,
+      value={{
+        feedback, 
+        feedbackEdit,
+        isLoading,
+        deleteFeedback, 
+        addFeedback,
+        editFeedback,
+        updateFeedback,
       }}>
         {children}
     </FeedbackContest.Provider>
