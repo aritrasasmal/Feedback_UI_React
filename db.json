@@ -1,19 +1,19 @@
 {
   "feedback": [
     {
-      "id": 1,
+      "text": "This is a feedback ",
+      "rating": 5,
+      "id": 1
+    },
+    {
+      "text": "Leave your feedback",
       "rating": 4,
-      "text": "This is feedback 1 from json-server"
+      "id": 2
     },
     {
-      "id": 2,
-      "rating": 3,
-      "text": "This is feedback 2 from json-server"
-    },
-    {
-      "rating": "4",
-      "text": "Posting from postman",
-      "id": 4
+      "text": "How is the feedback UI ?",
+      "rating": 5,
+      "id": 3
     }
   ]
 }
